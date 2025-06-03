@@ -1,0 +1,244 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+html {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background-color: rgb(182, 182, 182);
+  aspect-ratio: 1;
+}
+
+#calculator {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-areas:
+    "c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen"
+    "c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen"
+    "c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen"
+    "c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen c-screen"
+    "calculator-body calculator-body calculator-body calculator-body calculator-body calculator-body ind quick-rolls quick-rolls"
+    "calculator-body calculator-body calculator-body calculator-body calculator-body calculator-body ind quick-rolls quick-rolls"
+    "calculator-body calculator-body calculator-body calculator-body calculator-body calculator-body ind quick-rolls quick-rolls"
+    "calculator-body calculator-body calculator-body calculator-body calculator-body calculator-body ind quick-rolls quick-rolls"
+    "calculator-body calculator-body calculator-body calculator-body calculator-body calculator-body ind quick-rolls quick-rolls";
+}
+
+#calculator-body {
+  grid-area: calculator-body;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    "clear clear clear roll roll roll"
+    "d4 d6 btn-7 btn-8 btn-9 plus"
+    "d8 d10 btn-4 btn-5 btn-6 plus"
+    "d12 d20 btn-1 btn-2 btn-3 minus"
+    "d100 d100 btn-0 btn-0 btn-0 minus";
+}
+
+#quick-indicator {
+  cursor: default;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  color: #888;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+#quick-rolls {
+  width: 100%;
+  height: 100%;
+  grid-area: quick-rolls;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    "qd4 qd6"
+    "qd8 qd10"
+    "qd12 qd20"
+    "qd100 qd100"
+    "adv dis";
+}
+
+button {
+  position: relative;
+  background: #e2e2e2;
+  transition: background 0.1s, box-shadow 0.1s, border 0.1s, transform 0.1s;
+  font-weight: bold;
+}
+
+button:active,
+button.active {
+  background: #cccccc;
+}
+
+.increment,
+.quick,
+#clear,
+#roll,
+#adv,
+#dis {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.super {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: gray;
+  font-size: medium;
+}
+
+#c-screen-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-color: ivory;
+}
+
+#c-screen {
+  text-align: right;
+  overflow: auto;
+  background-color: transparent;
+  color: rgb(85, 85, 85);
+}
+
+#c-screen * {
+  display: block;
+}
+
+#c-screen::-webkit-scrollbar {
+  display: none;
+}
+
+@media (orientation: portrait) {
+  * {
+    font-size: 2.5vw;
+  }
+
+  body {
+    height: 100vw;
+    padding: 0 1vw;
+  }
+
+  #calculator {
+    gap: 1vw;
+  }
+
+  .btn-group {
+    gap: 0.5vw;
+    padding: 0.5vw;
+    border-radius: 2vw;
+    border: 0.25vw inset rgb(196, 196, 196);
+    box-shadow: inset 0 0 0.75vw 50vw rgb(61, 61, 61);
+  }
+
+  #quick-indicator {
+    font-size: 8vw;
+    text-align: center;
+    text-shadow: 0.2vw 0.2vw 0.4vw #fff, -0.2vw -0.2vw 0.4vw #444;
+  }
+
+  button {
+    border-radius: 2vw;
+    border: 2vw outset #bcbcbc;
+    box-shadow: 0 0.4vw 0.8vw #fff inset, 0 -0.8vw 1.6vw #bbb inset;
+  }
+
+  button:active,
+  button.active {
+    box-shadow: inset 0 0.4vw 1.2vw #888;
+    transform: translateY(0.4vw);
+    box-shadow: 0 0.4vw 1.2vw #888 inset;
+  }
+
+  #c-screen-box {
+    border-radius: 1vw;
+    border: 0.25vw inset rgb(196, 196, 196);
+    box-shadow: inset 0 0 0.75vw black;
+  }
+
+  #c-screen {
+    font-size: 6vw;
+    padding: 1vw;
+  }
+
+  #c-screen * {
+    font-size: 6vw;
+  }
+}
+
+@media (orientation: landscape) {
+  * {
+    font-size: 2.5vh;
+  }
+
+  body {
+    height: 100vh;
+    padding: 1vh 0;
+  }
+
+  #calculator {
+    gap: 1vh;
+  }
+
+  .btn-group {
+    gap: 0.5vh;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    border: 0.25vh inset rgb(196, 196, 196);
+    box-shadow: inset 0 0 0.75vh 50vh rgb(61, 61, 61);
+  }
+
+  #quick-indicator {
+    font-size: 8vh;
+    text-align: center;
+    text-shadow: 0.2vh 0.2vh 0.4vh #fff, -0.2vh -0.2vh 0.4vh #444;
+  }
+
+  button {
+    border-radius: 2vh;
+    border: 2vh outset rgb(196, 196, 196);
+    box-shadow: 0 0.4vh 0.8vh #bbb inset, 0 -0.8vh 1.6vh #bbb inset;
+  }
+
+  button:active,
+  button.active {
+    box-shadow: inset 0 0.4vh 1.2vh #888;
+    transform: translateY(0.4vh);
+    box-shadow: 0 0.4vh 1.2vh #888 inset;
+  }
+
+  #c-screen-box {
+    border-radius: 1vh;
+    border: 0.25vh inset rgb(196, 196, 196);
+    box-shadow: inset 0 0 0.75vh black;
+  }
+
+  #c-screen {
+    font-size: 6vh;
+    padding: 1vh;
+  }
+
+  #c-screen * {
+    font-size: 6vh;
+  }
+}

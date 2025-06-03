@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="grid-styles.css" />
+    <title>Dice Calculator</title>
+  </head>
+
+  <body>
+    <div id="calculator">
+      <div id="c-screen-box">
+        <div id="c-screen"></div>
+      </div>
+      <div id="calculator-body" class="btn-group">
+        <button id="clear"><span class="super">[Backspace]</span>Clear</button>
+        <button id="roll"><span class="super">[Enter]</span>Roll</button>
+        <button id="d4" class="increment">
+          <span class="super">u</span>d4
+        </button>
+        <button id="d6" class="increment">
+          <span class="super">i</span>d6
+        </button>
+        <button id="d8" class="increment">
+          <span class="super">o</span>d8
+        </button>
+        <button id="d10" class="increment">
+          <span class="super">p</span>d10
+        </button>
+        <button id="d12" class="increment">
+          <span class="super">j</span>d12
+        </button>
+        <button id="d20" class="increment">
+          <span class="super">k</span>d20
+        </button>
+        <button id="d100" class="increment">
+          <span class="super">l</span>d100
+        </button>
+        <button id="btn9" class="number" data-key="9">9</button>
+        <button id="btn8" class="number" data-key="8">8</button>
+        <button id="btn7" class="number" data-key="7">7</button>
+        <button id="btn6" class="number" data-key="6">6</button>
+        <button id="btn5" class="number" data-key="5">5</button>
+        <button id="btn4" class="number" data-key="4">4</button>
+        <button id="btn3" class="number" data-key="3">3</button>
+        <button id="btn2" class="number" data-key="2">2</button>
+        <button id="btn1" class="number" data-key="1">1</button>
+        <button id="btn0" class="number" data-key="0">0</button>
+        <button id="plus" onclick="plusMinus(this)">+</button>
+        <button id="minus" onclick="plusMinus(this)">-</button>
+      </div>
+      <div id="quick-indicator">Quick Rolls</div>
+      <div id="quick-rolls" class="btn-group">
+        <button id="qd4" class="quick"><span class="super">q+u</span>d4</button>
+        <button id="qd6" class="quick"><span class="super">q+i</span>d6</button>
+        <button id="qd8" class="quick"><span class="super">q+o</span>d8</button>
+        <button id="qd10" class="quick">
+          <span class="super">q+p</span>d10
+        </button>
+        <button id="qd12" class="quick">
+          <span class="super">q+j</span>d12
+        </button>
+        <button id="qd20" class="quick">
+          <span class="super">q+k</span>d20
+        </button>
+        <button id="qd100" class="quick">
+          <span class="super">q+l</span>d100
+        </button>
+        <button id="adv" onclick="advDis(this)">
+          <span class="super">a</span>ADV
+        </button>
+        <button id="dis" onclick="advDis(this)">
+          <span class="super">d</span>DIS
+        </button>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

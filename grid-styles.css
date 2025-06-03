@@ -1,0 +1,96 @@
+#c-screen-box {
+  grid-area: c-screen;
+}
+#quick-indicator {
+  grid-area: ind;
+}
+#clear {
+  grid-area: clear;
+}
+#roll {
+  grid-area: roll;
+}
+#d4 {
+  grid-area: d4;
+}
+#d6 {
+  grid-area: d6;
+}
+#d8 {
+  grid-area: d8;
+}
+#d10 {
+  grid-area: d10;
+}
+#d12 {
+  grid-area: d12;
+}
+#d20 {
+  grid-area: d20;
+}
+#d100 {
+  grid-area: d100;
+}
+#btn1 {
+  grid-area: btn-1;
+}
+#btn2 {
+  grid-area: btn-2;
+}
+#btn3 {
+  grid-area: btn-3;
+}
+#btn4 {
+  grid-area: btn-4;
+}
+#btn5 {
+  grid-area: btn-5;
+}
+#btn6 {
+  grid-area: btn-6;
+}
+#btn7 {
+  grid-area: btn-7;
+}
+#btn8 {
+  grid-area: btn-8;
+}
+#btn9 {
+  grid-area: btn-9;
+}
+#btn0 {
+  grid-area: btn-0;
+}
+#plus {
+  grid-area: plus;
+}
+#minus {
+  grid-area: minus;
+}
+#qd4 {
+  grid-area: qd4;
+}
+#qd6 {
+  grid-area: qd6;
+}
+#qd8 {
+  grid-area: qd8;
+}
+#qd10 {
+  grid-area: qd10;
+}
+#qd12 {
+  grid-area: qd12;
+}
+#qd20 {
+  grid-area: qd20;
+}
+#qd100 {
+  grid-area: qd100;
+}
+#adv {
+  grid-area: adv;
+}
+#dis {
+  grid-area: dis;
+}
