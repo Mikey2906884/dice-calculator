@@ -22,7 +22,7 @@ class Increment {
       !screen.innerHTML.endsWith(" ")
     ) {
       return;
-    } else if (this.count === 10) return;
+    } else if (this.count === 100) return;
 
     if (screen.innerHTML === "" || screen.innerHTML.endsWith(" ")) {
       this.count = 1;
@@ -68,9 +68,11 @@ class Quick {
       const valueSpans = Array.from(screen.querySelectorAll(".roll-values"));
       // Flatten all numbers in all spans
       const values = valueSpans
-        .map((span) => span.textContent.match(/-?\d+/g))
-        .flat()
-        .map(Number);
+        .map((span) => {
+          let text = span.childNodes[0]?.textContent || "";
+          return (text.match(/-?\d+/g) || []).map(Number);
+        })
+        .flat();
 
       max = Math.max(...values);
       min = Math.min(...values);
@@ -114,6 +116,11 @@ class Quick {
     } else {
       screen.innerHTML = `1${this.die.replace("q", "")}`;
       roll();
+
+      screen.innerHTML = screen.innerHTML.split("<b>")[0];
+      screen.querySelectorAll(".sub-total").forEach((sub) => {
+        sub.innerHTML = "";
+      });
     }
   }
 }
@@ -215,9 +222,14 @@ document.getElementById("clear").addEventListener("click", clear);
 
 function roll() {
   const screen = document.getElementById("c-screen");
+  let formula;
 
   // Remove previous results
-  const formula = screen.innerHTML.split("<br>")[0];
+  if (screen.querySelector("#head")) {
+    formula = screen.querySelector("#head").innerHTML.split("<br>")[0];
+  } else {
+    formula = screen.innerHTML.split("<br>")[0];
+  }
   screen.innerHTML = formula;
 
   let total = 0;
@@ -248,18 +260,27 @@ function roll() {
             total += result;
           }
         }
-        let color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        let color = `hsl(${Math.random() * 360}, ${90 + Math.random() * 10}%, ${
+          70 + Math.random() * 10
+        }%)`;
         let groupLabel = `${count}d${sides}`;
         let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
     <span class="roll-label" style="font-size:0.9em;opacity:0.7;">${groupLabel}:</span>
     <span class="roll-values" style="text-align: right;">${groupResults.join(
       ", "
-    )}</span>
+    )}<sub class="sub-total" style="font-size: ${
+          window.innerHeight > window.innerWidth ? "4vw" : "4vh"
+        };">${groupResults.reduce(
+          (acc, val) => acc + Number(val),
+          0
+        )}</sub></span>
   </span>`;
         results.push(groupSpan);
         groupIndex++;
       } else if (constMatch) {
-        let color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        let color = `hsl(${Math.random() * 360}, ${90 + Math.random() * 10}%, ${
+          70 + Math.random() * 10
+        }%)`;
         let value = parseInt(token, 10);
         if (currentOp === "-") {
           value = -value;
@@ -295,7 +316,9 @@ function roll() {
     instance.count = 1;
   });
 
+  screen.innerHTML = `<div id="head" style="color: transparent;">${screen.innerHTML}</div>`;
   screen.innerHTML += `<br><div>(${results.join("")})</div><b>${total}</b>`;
+
   screen.scrollTop = screen.scrollHeight;
 }
 document.getElementById("roll").addEventListener("click", roll);

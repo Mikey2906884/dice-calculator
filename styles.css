@@ -15,7 +15,7 @@ html {
 
 body {
   background-color: rgb(182, 182, 182);
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
 }
 
 #calculator {
@@ -103,7 +103,6 @@ button.active {
   left: 50%;
   transform: translate(-50%, 0);
   color: gray;
-  font-size: medium;
 }
 
 #c-screen-box {
@@ -132,6 +131,10 @@ button.active {
 @media (orientation: portrait) {
   * {
     font-size: 2.5vw;
+  }
+
+  .super {
+    font-size: 2vw;
   }
 
   body {
@@ -189,6 +192,10 @@ button.active {
 @media (orientation: landscape) {
   * {
     font-size: 2.5vh;
+  }
+
+  .super {
+    font-size: 2vh;
   }
 
   body {
