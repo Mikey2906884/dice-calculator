@@ -118,9 +118,6 @@ class Quick {
       roll();
 
       screen.innerHTML = screen.innerHTML.split("<b>")[0];
-      screen.querySelectorAll(".sub-total").forEach((sub) => {
-        sub.innerHTML = "";
-      });
     }
   }
 }
@@ -265,15 +262,15 @@ function roll() {
         }%)`;
         let groupLabel = `${count}d${sides}`;
         let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
-    <span class="roll-label" style="font-size:0.9em;opacity:0.7;">${groupLabel}:</span>
-    <span class="roll-values" style="text-align: right;">${groupResults.join(
-      ", "
-    )}<sub class="sub-total" style="font-size: ${
+    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:<div style="font-size: ${
           window.innerHeight > window.innerWidth ? "4vw" : "4vh"
-        };">${groupResults.reduce(
+        }">${groupResults.reduce(
           (acc, val) => acc + Number(val),
           0
-        )}</sub></span>
+        )}</div></span>
+    <span class="roll-values" style="text-align: right;">${groupResults.join(
+      ", "
+    )}</span>
   </span>`;
         results.push(groupSpan);
         groupIndex++;
