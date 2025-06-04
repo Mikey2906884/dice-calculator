@@ -217,6 +217,8 @@ function clear() {
 }
 document.getElementById("clear").addEventListener("click", clear);
 
+let previousRoll;
+let colorHouse;
 function roll() {
   const screen = document.getElementById("c-screen");
   let formula;
@@ -227,6 +229,20 @@ function roll() {
   } else {
     formula = screen.innerHTML.split("<br>")[0];
   }
+
+  if (previousRoll !== formula) {
+    colorHouse = [];
+    for (let i = 0; i < 5; i++) {
+      colorHouse.push(
+        `hsl(${Math.random() * 360}, ${90 + Math.random() * 10}%, ${
+          70 + Math.random() * 10
+        }%)`
+      );
+    }
+
+    previousRoll = formula;
+  }
+
   screen.innerHTML = formula;
 
   let total = 0;
@@ -235,6 +251,7 @@ function roll() {
   const tokens = formula.split(/(\s[+-]\s)/);
 
   let currentOp = "+";
+  let resultLength = 0;
 
   tokens.forEach((token) => {
     token = token.trim();
@@ -257,50 +274,47 @@ function roll() {
             total += result;
           }
         }
-        let color = `hsl(${Math.random() * 360}, ${90 + Math.random() * 10}%, ${
-          70 + Math.random() * 10
-        }%)`;
+        let color = colorHouse[groupIndex % colorHouse.length];
+        resultLength = groupResults.length;
         let groupLabel = `${count}d${sides}`;
-        let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
-    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:<div style="font-size: ${
-          window.innerHeight > window.innerWidth ? "4vw" : "4vh"
-        }">${groupResults.reduce(
-          (acc, val) => acc + Number(val),
-          0
-        )}</div></span>
+        if (resultLength > 1) {
+          let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
+    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:<div style="color: #000000bb;margin-left: ${
+            window.innerHeight > window.innerWidth ? "3vw" : "3vh"
+          };font-size: ${
+            window.innerHeight > window.innerWidth ? "4.5vw" : "4.5vh"
+          }">${groupResults.reduce(
+            (acc, val) => acc + Number(val),
+            0
+          )}</div></span>
     <span class="roll-values" style="text-align: right;">${groupResults.join(
       ", "
     )}</span>
   </span>`;
-        results.push(groupSpan);
+          results.push(groupSpan);
+        } else if (resultLength === 1) {
+          let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
+    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:</span>
+    <span class="roll-values" style="text-align: right;">${groupResults[0]}</span>
+  </span>`;
+          results.push(groupSpan);
+        }
         groupIndex++;
       } else if (constMatch) {
-        let color = `hsl(${Math.random() * 360}, ${90 + Math.random() * 10}%, ${
-          70 + Math.random() * 10
-        }%)`;
+        let color = colorHouse[groupIndex % colorHouse.length];
         let value = parseInt(token, 10);
         if (currentOp === "-") {
           value = -value;
-          let constSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
-    <span class="roll-label" style="font-size:0.9em;opacity:0.7;">${
-      value >= 0 ? "+" : "-"
-    }:</span>
-    <span class="roll-values" style="text-align: right;">${-value}</span>
-  </span>`;
-          results.push(constSpan);
-          groupIndex++;
-          total += value;
-        } else {
-          let constSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
-    <span class="roll-label" style="font-size:0.9em;opacity:0.7;">${
-      value >= 0 ? "+" : "-"
-    }:</span>
-    <span class="roll-values" style="text-align: right;">${value}</span>
-  </span>`;
-          results.push(constSpan);
-          groupIndex++;
-          total += value;
         }
+        let constSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
+  <span class="roll-label" style="font-size:0.9em;opacity:0.7;">${
+    value >= 0 ? "+" : "-"
+  }</span>
+  <span class="roll-values" style="text-align: right;">${Math.abs(value)}</span>
+</span>`;
+        results.push(constSpan);
+        groupIndex++;
+        total += value;
       }
     }
   });
@@ -314,7 +328,12 @@ function roll() {
   });
 
   screen.innerHTML = `<div id="head" style="color: transparent;">${screen.innerHTML}</div>`;
-  screen.innerHTML += `<br><div>(${results.join("")})</div><b>${total}</b>`;
+
+  if (results.length === 1 && resultLength <= 30) {
+    screen.innerHTML += `<br><div>${results.join("")}</div>`;
+  } else {
+    screen.innerHTML += `<br><div>${results.join("")}</div><b>${total}</b>`;
+  }
 
   screen.scrollTop = screen.scrollHeight;
 }
