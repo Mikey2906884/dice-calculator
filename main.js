@@ -17,7 +17,7 @@ class Increment {
       screen.innerHTML.split("+").length -
         1 +
         (screen.innerHTML.split("-").length - 1) ===
-        4 &&
+        7 &&
       !screen.innerHTML.endsWith(`${this.die}`) &&
       !screen.innerHTML.endsWith(" ")
     ) {
@@ -140,7 +140,7 @@ function number(event) {
     screen.innerHTML.split("+").length -
       1 +
       (screen.innerHTML.split("-").length - 1) ===
-      4 &&
+      7 &&
     (endingSub.length === 3 || endingSub.includes("d"))
   ) {
     return;
@@ -176,7 +176,7 @@ function plusMinus(button) {
     screen.innerHTML.split("+").length -
       1 +
       (screen.innerHTML.split("-").length - 1) ===
-    4
+    7
   ) {
     return;
   }
@@ -217,8 +217,16 @@ function clear() {
 }
 document.getElementById("clear").addEventListener("click", clear);
 
-let previousRoll;
-let colorHouse;
+const colorHouse = [
+  "hsl(0, 100%, 75%)",
+  "hsl(30, 100%, 70%)",
+  "hsl(60, 100%, 70%)",
+  "hsl(120, 100%, 70%)",
+  "hsl(180, 100%, 70%)",
+  "hsl(240, 100%, 80%)",
+  "hsl(270, 50%, 80%)",
+  "hsl(300, 100%, 75%)",
+];
 function roll() {
   const screen = document.getElementById("c-screen");
   let formula;
@@ -228,19 +236,6 @@ function roll() {
     formula = screen.querySelector("#head").innerHTML.split("<br>")[0];
   } else {
     formula = screen.innerHTML.split("<br>")[0];
-  }
-
-  if (previousRoll !== formula) {
-    colorHouse = [];
-    for (let i = 0; i < 5; i++) {
-      colorHouse.push(
-        `hsl(${Math.random() * 360}, ${80 + Math.random() * 10}%, ${
-          65 + Math.random() * 20
-        }%)`
-      );
-    }
-
-    previousRoll = formula;
   }
 
   screen.innerHTML = formula;
@@ -274,12 +269,21 @@ function roll() {
             total += result;
           }
         }
-        let color = colorHouse[groupIndex % colorHouse.length];
+        let color;
+        if (sides === 4) color = colorHouse[0];
+        else if (sides === 6) color = colorHouse[1];
+        else if (sides === 8) color = colorHouse[2];
+        else if (sides === 10) color = colorHouse[3];
+        else if (sides === 12) color = colorHouse[4];
+        else if (sides === 20) color = colorHouse[5];
+        else if (sides === 100) color = colorHouse[6];
         resultLength = groupResults.length;
         let groupLabel = `${count}d${sides}`;
         if (resultLength > 1) {
           let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin:2px;display:inline-block;">
-    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:<div style="color: #000000cc;margin-left: ${
+    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${
+      currentOp === "-" ? "-" : ""
+    }${groupLabel}:<div style="color: #000000cc;margin-left: ${
             window.innerHeight > window.innerWidth ? "3vw" : "3vh"
           };font-size: ${
             window.innerHeight > window.innerWidth ? "4.5vw" : "4.5vh"
@@ -294,19 +298,23 @@ function roll() {
           results.push(groupSpan);
         } else if (resultLength === 1) {
           let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin:2px;display:inline-block;">
-    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:</span>
-    <span class="roll-values" style="text-align: right;">${groupResults[0]}</span>
+    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${
+      currentOp === "-" ? "-" : ""
+    }${groupLabel}:</span>
+    <span class="roll-values" style="text-align: right;">${
+      groupResults[0]
+    }</span>
   </span>`;
           results.push(groupSpan);
         }
         groupIndex++;
       } else if (constMatch) {
-        let color = colorHouse[groupIndex % colorHouse.length];
+        let color = colorHouse[7];
         let value = parseInt(token, 10);
         if (currentOp === "-") {
           value = -value;
         }
-        let constSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
+        let constSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin:2px;display:inline-block;">
   <span class="roll-label" style="font-size:0.9em;opacity:0.7;">${
     value >= 0 ? "+" : "-"
   }</span>
