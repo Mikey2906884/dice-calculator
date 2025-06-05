@@ -234,8 +234,8 @@ function roll() {
     colorHouse = [];
     for (let i = 0; i < 5; i++) {
       colorHouse.push(
-        `hsl(${Math.random() * 360}, ${90 + Math.random() * 10}%, ${
-          70 + Math.random() * 10
+        `hsl(${Math.random() * 360}, ${80 + Math.random() * 10}%, ${
+          65 + Math.random() * 20
         }%)`
       );
     }
@@ -278,8 +278,8 @@ function roll() {
         resultLength = groupResults.length;
         let groupLabel = `${count}d${sides}`;
         if (resultLength > 1) {
-          let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
-    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:<div style="color: #000000bb;margin-left: ${
+          let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin:2px;display:inline-block;">
+    <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:<div style="color: #000000cc;margin-left: ${
             window.innerHeight > window.innerWidth ? "3vw" : "3vh"
           };font-size: ${
             window.innerHeight > window.innerWidth ? "4.5vw" : "4.5vh"
@@ -293,7 +293,7 @@ function roll() {
   </span>`;
           results.push(groupSpan);
         } else if (resultLength === 1) {
-          let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin-right:4px;display:inline-block;">
+          let groupSpan = `<span class="roll-group" style="text-align: left;background:${color};padding:2px 6px;border-radius:6px;margin:2px;display:inline-block;">
     <span class="roll-label" style="display: flex;justify-content: space-between;font-size:0.9em;opacity:0.7;">${groupLabel}:</span>
     <span class="roll-values" style="text-align: right;">${groupResults[0]}</span>
   </span>`;

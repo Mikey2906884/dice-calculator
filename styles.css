@@ -177,6 +177,7 @@ button.active {
     border-radius: 1vw;
     border: 0.25vw inset rgb(196, 196, 196);
     box-shadow: inset 0 0 0.75vw black;
+    padding: 0.5vw;
   }
 
   #c-screen {
@@ -238,6 +239,7 @@ button.active {
     border-radius: 1vh;
     border: 0.25vh inset rgb(196, 196, 196);
     box-shadow: inset 0 0 0.75vh black;
+    padding: 0.5vh;
   }
 
   #c-screen {
